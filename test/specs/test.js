@@ -15,22 +15,26 @@ describe('challenge test', () => {
 	        link.click()
 	    })
 	})
-    it('should set value for a certain element', () => {
+    it('should be 12$ as a result', () => {
 	    const startingDate = $('#StartingDate');
 	    startingDate.setValue('18/07/2020');
 	    const startingTime = $('#StartingTime');
-	    startingTime.setValue(Math.floor((Math.random() * 5)+ 1)+":" + (Math.floor((Math.random() *60);
+	    startingTime.setValue(Math.floor((Math.random() * 5)+ 1)+":" + (Math.floor(Math.random() *60)));
 	    const leavingDate = $('#LeavingDate');
 	    leavingDate.setValue('18/07/2020');
-	    const leavingTime = $('#LeavingTime');
+	    leavingTime = $('#LeavingTime');
 	    leavingTime.setValue("6:29");
-	    const button = $('body > form > input[type=submit]:nth-child(3)');
+	    button = $('body > form > input[type=submit]:nth-child(3)');
    		button.click();
-	    //const total = $('body > form > table > tbody > tr:nth-child(4) > td.SubHead > b');
-		//expect(total).toHaveText('$ 12');
-		leavingTime.setValue(Math.floor((Math.random() * 6)+ 5)+":"+ (Math.floor((Math.random() *60);
-   		button.click();
+	    const total = $('body > form > table > tbody > tr:nth-child(4) > td.SubHead > b');
+		expect(total).toHaveText('$ 12');
 
     })
+    it('should be 18$ as a result', () => {
+		leavingTime.setValue(Math.floor((Math.random() * 2)+ 10)+":"+ (Math.floor(Math.random() *60)));
+   		button.click();
+	    const total = $('body > form > table > tbody > tr:nth-child(4) > td.SubHead > b');
+		expect(total).toHaveText('$ 18');
+	})
 })
 

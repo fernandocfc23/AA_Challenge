@@ -23,18 +23,18 @@ describe('challenge test', () => {
 	    const leavingDate = $('#LeavingDate');
 	    leavingDate.setValue('18/07/2020');
 	    leavingTime = $('#LeavingTime');
-	    leavingTime.setValue("6:29");
+	    leavingTime.setValue("6:00");
 	    button = $('body > form > input[type=submit]:nth-child(3)');
    		button.click();
-	    const total = $('body > form > table > tbody > tr:nth-child(4) > td.SubHead > b');
-		expect(total).toHaveText('$ 12');
+	  	total = $('/html/body/form/table/tbody/tr[4]/td[2]');
+		expect(total).toHaveTextContaining('$ 12.00');
 
     })
     it('should be 18$ as a result', () => {
 		leavingTime.setValue(Math.floor((Math.random() * 2)+ 10)+":"+ (Math.floor(Math.random() *60)));
    		button.click();
-	    const total = $('body > form > table > tbody > tr:nth-child(4) > td.SubHead > b');
-		expect(total).toHaveText('$ 18');
+	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
+		expect(total).toHaveTextContaining('$ 18.00');
 	})
 })
 

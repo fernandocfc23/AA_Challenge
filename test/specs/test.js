@@ -19,15 +19,15 @@ describe('challenge test', () => {
 	    const startingDate = $('#StartingDate');
 	    startingDate.setValue('18/07/2020');
 	    const startingTime = $('#StartingTime');
-	    startingTime.setValue(Math.floor((Math.random() * 6)+ 1)+":00");
+	    startingTime.setValue(Math.floor((Math.random() * 5)+ 1)+":30");
 	    const leavingDate = $('#LeavingDate');
 	    leavingDate.setValue('18/07/2020');
 	    const leavingTime = $('#LeavingTime');
-	    leavingTime.setValue("8:00");
+	    leavingTime.setValue("6:29");
 	    const button = $('body > form > input[type=submit]:nth-child(3)');
    		button.click();
 	    const total = $('body > form > table > tbody > tr:nth-child(4) > td.SubHead > b');
-		expect(total).toHaveValue('$ 12');
+		expect(total).toHaveText('$ 12');
     })
 })
 

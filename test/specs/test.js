@@ -20,13 +20,11 @@ describe('challenge test', () => {
 	})
 	//Backend test
     it('should be 12$ as a result', () => {
-	    const startingDate = $('#StartingDate');
+	    startingDate = $('#StartingDate');
 	    startingDate.setValue('18/07/2020');
-	    const startingTime = $('#StartingTime');
-	    const firstOption= $('#ParkingLot > option:nth-child(2)')
-	    firstOption.click();
+	    startingTime = $('#StartingTime');
 	    startingTime.setValue(Math.floor((Math.random() * 5)+ 1)+":" + (Math.floor(Math.random() *60)));
-	    const leavingDate = $('#LeavingDate');
+	    leavingDate = $('#LeavingDate');
 	    leavingDate.setValue('18/07/2020');
 	    leavingTime = $('#LeavingTime');
 	    leavingTime.setValue("6:00");
@@ -35,7 +33,21 @@ describe('challenge test', () => {
 	  	total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		expect(total).toHaveTextContaining('$ 12.00');
     })
+    it('should be 2$ as a result', () => {
+    	const parkingLot= $('#ParkingLot > option:nth-child(2)')
+	    parkingLot.click();
+	    const num = Math.floor((Math.random() * 9)+ 1);
+	    const num2 = (Math.floor(Math.random() *60));
+	    startingTime.setValue(num+":"+num2);
+	    num+=1;
+		leavingTime.setValue(num+":"+num2);
+   		button.click();
+	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
+		expect(total).toHaveTextContaining('$ 2.00');
+	})
     it('should be 18$ as a result', () => {
+    	const parkingLot= $('#ParkingLot > option:nth-child(2)')
+	    parkingLot.click();
 		leavingTime.setValue(Math.floor((Math.random() * 2)+ 10)+":"+ (Math.floor(Math.random() *60)));
    		button.click();
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');

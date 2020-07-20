@@ -1,4 +1,5 @@
 describe('challenge test', () => {
+	
 	//Frontend test
     it('should have the right title', () => {
         browser.url('http://www.shino.de/parkcalc/')
@@ -18,14 +19,17 @@ describe('challenge test', () => {
 	        link.click()
 	    })
 	})
-	//Backend test
+
+	//-------------------------------Backend test-------------------------------
+
+	//Valet parking user cases
     it('should be 12$ as a result', () => {
 	    startingDate = $('#StartingDate');
-	    startingDate.setValue('18/07/2020');
+	    startingDate.setValue('07/18/2020');
 	    startingTime = $('#StartingTime');
 	    startingTime.setValue(Math.floor((Math.random() * 5)+ 1)+":" + (Math.floor(Math.random() *60)));
 	    leavingDate = $('#LeavingDate');
-	    leavingDate.setValue('18/07/2020');
+	    leavingDate.setValue('07/18/2020');
 	    leavingTime = $('#LeavingTime');
 	    leavingTime.setValue("6:00");
 	    button = $('body > form > input[type=submit]:nth-child(3)');
@@ -33,25 +37,25 @@ describe('challenge test', () => {
 	  	total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		expect(total).toHaveTextContaining('$ 12.00');
     })
-    it('should be 2$ as a result', () => {
-    	const parkingLot= $('#ParkingLot > option:nth-child(2)')
-	    parkingLot.click();
-	    const num = Math.floor((Math.random() * 9)+ 1);
-	    const num2 = (Math.floor(Math.random() *60));
-	    startingTime.setValue(num+":"+num2);
-	    num+=1;
-		leavingTime.setValue(num+":"+num2);
-   		button.click();
-	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
-		expect(total).toHaveTextContaining('$ 2.00');
-	})
     it('should be 18$ as a result', () => {
-    	const parkingLot= $('#ParkingLot > option:nth-child(2)')
-	    parkingLot.click();
 		leavingTime.setValue(Math.floor((Math.random() * 2)+ 10)+":"+ (Math.floor(Math.random() *60)));
    		button.click();
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		expect(total).toHaveTextContaining('$ 18.00');
+	})
+
+	//Short-Term (hourly) parking user cases
+    it('should be 2$ as a result', () => {
+    	const parkingLot= $('#ParkingLot > option:nth-child(2)')
+	    parkingLot.click();
+	    const initialHour = Math.floor((Math.random() * 9)+ 1);
+	    const initialMinute = (Math.floor(Math.random() *60));
+	    startingTime.setValue(initialHour+":"+initialMinute);
+	    finalHour=parseInt(initialHour)+1;
+		leavingTime.setValue(finalHour+":"+initialMinute);
+   		button.click();
+	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
+		expect(total).toHaveTextContaining('$ 2.00');
 	})
 })
 

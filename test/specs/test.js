@@ -26,7 +26,7 @@ describe('challenge test', () => {
     	do{
     		finalDay = (Math.floor(Math.random() *29)+1);
     	}while(initialDay > finalDay); 
-    	const countDays = parseInt(finalDay) - parseInt(initialDay); + 1;
+    	const countDays = parseInt(finalDay) - parseInt(initialDay) + 1;
 
 
 	//Valet parking user cases
@@ -47,22 +47,23 @@ describe('challenge test', () => {
 
 	//Short-Term (hourly) parking user cases
     it('should be 24$ per day as a result', () => {
-    	const parkingLot= $('#ParkingLot > option:nth-child(2)')
+    	parkingLot= $('#ParkingLot > option:nth-child(2)');
 	    parkingLot.click();
    		button.click();
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		expect(total).toHaveTextContaining("$ "+(countDays*24)+'.00');
 	})
 	
-	if(countDays > 7)
+	weeks = false;
+	if(countDays >= 7)
 	{
-		weeks == true;
-		countWeeks == countDays/7;
+		weeks = true;
+		countWeeks = countDays/7;
 	}
 
 	//Long-Term (hourly) parking user cases
     it('should be 14$ per day or 72$ per week as a result', () => {
-    	const parkingLot= $('#ParkingLot > option:nth-child(4)')
+    	parkingLot= $('#ParkingLot > option:nth-child(4)');
 	    parkingLot.click();
    		button.click();
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');

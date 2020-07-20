@@ -18,15 +18,13 @@ describe('challenge test', () => {
 	    })
 	})
 
-	//-------------------------------Backend test-------------------------------
-    	
 		//Random functions for calendar 
     	const initialDay = (Math.floor(Math.random() *29)+1);
     	finalDay = 0;
     	do{
     		finalDay = (Math.floor(Math.random() *29)+1);
     	}while(initialDay > finalDay); 
-    	const countDays = parseInt(finalDay) - parseInt(initialDay);
+    	const countDays = parseInt(finalDay) - parseInt(initialDay) +1;
     	const initialHour = Math.floor((Math.random() * 11)+1);
     	const initialMinutes = Math.floor(Math.random() *60);
     	const finalHour = Math.floor((Math.random() * 11)+1);
@@ -35,8 +33,8 @@ describe('challenge test', () => {
     	const countMinutes = parseInt(finalMinutes) - parseInt(initialMinutes);
     	const countTotalMinutes = (countHours * 60) + countMinutes;
 
-	//Valet parking user cases
-    it('should be 18$ per day as a result', () => {
+
+    it('should form have editable elements', () => {
     	startingDate = $('#StartingDate');
 	    startingDate.setValue("07/"+initialDay+'/2020');
 	    leavingDate = $('#LeavingDate');
@@ -45,6 +43,12 @@ describe('challenge test', () => {
 	    leavingTime = $('#LeavingTime');
     	startingTime.setValue(initialHour+":" +initialMinutes);
 	   	leavingTime.setValue(finalHour+":" +finalMinutes);
+	})
+
+	//-------------------------------Backend test-------------------------------
+    	
+	//Valet parking user cases
+    it('should be 18$ per day as a result', () => {
 	    button = $('body > form > input[type=submit]:nth-child(3)');
    		button.click();
 	  	total = $('/html/body/form/table/tbody/tr[4]/td[2]');
@@ -59,10 +63,12 @@ describe('challenge test', () => {
     })
 	
 	weeks = false;
+	countWeeks=0;
 	if(countDays >= 7)
 	{
 		weeks = true;
-		parseInt(countWeeks) = countDays/7;
+		countWeeks = ~~(countDays/7);
+		daysLeft = countDays - (countWeeks*7)
 	}
 
 	//Long-Term garage parking user cases
@@ -73,8 +79,18 @@ describe('challenge test', () => {
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		    if(weeks)
 		    {
-		    	expect(total).toHaveTextContaining("$ "+(countWeeks*72)+'.00');
+		    	if (countHours <=5)
+		    	{
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+(countHours*2)+(countWeeks*72))+'.00');
+		    	}
+		    	else{
+		    		expect(total).toHaveTextContaining("$ "+(daysLeft+(countWeeks*72))+'.00');
+		    	}
 		    }else{
+		    	if (countHours <=5)
+		    	{
+		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*12+(countHours*2))+'.00');
+		    	}
 		    	expect(total).toHaveTextContaining("$ "+(countDays*12)+'.00');
 		    }
 	})	
@@ -85,10 +101,20 @@ describe('challenge test', () => {
 	    parkingLot.click();
    		button.click();
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
-	  	    if(weeks)
+		    if(weeks)
 		    {
-		    	expect(total).toHaveTextContaining("$ "+(countWeeks*60)+'.00');
+		    	if (countHours <=5)
+		    	{
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+(countHours*2)+(countWeeks*72))+'.00');
+		    	}
+		    	else{
+		    		expect(total).toHaveTextContaining("$ "+(daysLeft+(countWeeks*60))+'.00');
+		    	}
 		    }else{
+		    	if (countHours <=5)
+		    	{
+		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*10+(countHours*2))+'.00');
+		    	}
 		    	expect(total).toHaveTextContaining("$ "+(countDays*10)+'.00');
 		    }
 	})
@@ -98,10 +124,20 @@ describe('challenge test', () => {
 	    parkingLot.click();
    		button.click();
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
-	  	    if(weeks)
+		    if(weeks)
 		    {
-		    	expect(total).toHaveTextContaining("$ "+(countWeeks*54)+'.00');
+		    	if (countHours <=5)
+		    	{
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+(countHours*2)+(countWeeks*72))+'.00');
+		    	}
+		    	else{
+		    		expect(total).toHaveTextContaining("$ "+(daysLeft+(countWeeks*54))+'.00');
+		    	}
 		    }else{
+		    	if (countHours <=5)
+		    	{
+		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*9+(countHours*2))+'.00');
+		    	}
 		    	expect(total).toHaveTextContaining("$ "+(countDays*9)+'.00');
 		    }
 	})

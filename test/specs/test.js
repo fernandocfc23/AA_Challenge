@@ -1,4 +1,4 @@
-describe('challenge test', () => {
+describe('Parking lot', () => {
 	
 	//Frontend test
     it('should have the right title', () => {
@@ -30,9 +30,6 @@ describe('challenge test', () => {
     	const finalHour = Math.floor((Math.random() * 11)+1);
     	const finalMinutes = Math.floor(Math.random() *60);
     	const countHours = parseInt(finalHour) - parseInt(initialHour);
-    	const countMinutes = parseInt(finalMinutes) - parseInt(initialMinutes);
-    	const countTotalMinutes = (countHours * 60) + countMinutes;
-
 
     it('should form have editable elements', () => {
     	startingDate = $('#StartingDate');
@@ -81,17 +78,20 @@ describe('challenge test', () => {
 		    {
 		    	if (countHours <=5)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+(countHours*2)+(countWeeks*72))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+((countHours+1)*2)+(countWeeks*72))+'.00');
 		    	}
 		    	else{
-		    		expect(total).toHaveTextContaining("$ "+(daysLeft+(countWeeks*72))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft*12)+(countWeeks*72))+'.00');
 		    	}
 		    }else{
 		    	if (countHours <=5)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*12+(countHours*2))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*12+((countHours+1)*2))+'.00');
 		    	}
-		    	expect(total).toHaveTextContaining("$ "+(countDays*12)+'.00');
+		    	else
+		    	{
+		    		expect(total).toHaveTextContaining("$ "+(countDays*12)+'.00');	
+		    	}
 		    }
 	})	
 
@@ -103,19 +103,22 @@ describe('challenge test', () => {
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		    if(weeks)
 		    {
-		    	if (countHours <=5)
+		    	if (countHours <=4)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+(countHours*2)+(countWeeks*72))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+((countHours+1)*2)+(countWeeks*72))+'.00');
 		    	}
 		    	else{
-		    		expect(total).toHaveTextContaining("$ "+(daysLeft+(countWeeks*60))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft*10)+(countWeeks*60))+'.00');
 		    	}
 		    }else{
-		    	if (countHours <=5)
+		    	if (countHours <=4)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*10+(countHours*2))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*10+((countHours+1)*2))+'.00');
 		    	}
-		    	expect(total).toHaveTextContaining("$ "+(countDays*10)+'.00');
+		    	else
+		    	{
+		    		expect(total).toHaveTextContaining("$ "+(countDays*10)+'.00');	
+		    	}
 		    }
 	})
 	//Economy lot parking user cases
@@ -126,19 +129,22 @@ describe('challenge test', () => {
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		    if(weeks)
 		    {
-		    	if (countHours <=5)
+		    	if (countHours <=4)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+(countHours*2)+(countWeeks*72))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+((countHours+1)*2)+(countWeeks*72))+'.00');
 		    	}
 		    	else{
-		    		expect(total).toHaveTextContaining("$ "+(daysLeft+(countWeeks*54))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft*9)+(countWeeks*54))+'.00');
 		    	}
 		    }else{
-		    	if (countHours <=5)
+		    	if (countHours <=4)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*9+(countHours*2))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*9+((countHours+1)*2))+'.00');
 		    	}
-		    	expect(total).toHaveTextContaining("$ "+(countDays*9)+'.00');
+		    	else
+		    	{
+		    		expect(total).toHaveTextContaining("$ "+(countDays*9)+'.00');	
+		    	}
 		    }
 	})
 })

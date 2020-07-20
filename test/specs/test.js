@@ -80,12 +80,39 @@ describe('challenge test', () => {
 	    parkingLot.click();
    		button.click();
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
-	    if(weeks)
-	    {
-	    	expect(total).toHaveTextContaining("$ "+(countWeeks*60)+'.00');
-	    }else{
-	    	expect(total).toHaveTextContaining("$ "+(countDays*12)+'.00');
-	    }
+		    if(weeks)
+		    {
+		    	expect(total).toHaveTextContaining("$ "+(countWeeks*72)+'.00');
+		    }else{
+		    	expect(total).toHaveTextContaining("$ "+(countDays*12)+'.00');
+		    }
+	})	
+
+	//Long-Term surface parking user cases
+    it('should be 10$ per day or 60$ per week as a result', () => {
+    	parkingLot= $('#ParkingLot > option:nth-child(5)');
+	    parkingLot.click();
+   		button.click();
+	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
+	  	    if(weeks)
+		    {
+		    	expect(total).toHaveTextContaining("$ "+(countWeeks*60)+'.00');
+		    }else{
+		    	expect(total).toHaveTextContaining("$ "+(countDays*10)+'.00');
+		    }
+	})
+	//Economy lot parking user cases
+    it('should be 9$ per day or 54$ per week as a result', () => {
+    	parkingLot= $('#ParkingLot > option:nth-child(3)');
+	    parkingLot.click();
+   		button.click();
+	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
+	  	    if(weeks)
+		    {
+		    	expect(total).toHaveTextContaining("$ "+(countWeeks*54)+'.00');
+		    }else{
+		    	expect(total).toHaveTextContaining("$ "+(countDays*9)+'.00');
+		    }
 	})
 })
 

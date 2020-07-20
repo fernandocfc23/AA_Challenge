@@ -20,39 +20,52 @@ describe('challenge test', () => {
 
 	//-------------------------------Backend test-------------------------------
     	
-		//Random function for calendar days
+		//Random functions for calendar 
     	const initialDay = (Math.floor(Math.random() *29)+1);
     	finalDay = 0;
     	do{
     		finalDay = (Math.floor(Math.random() *29)+1);
     	}while(initialDay > finalDay); 
-    	const countDays = parseInt(finalDay) - parseInt(initialDay) + 1;
-
+    	const countDays = parseInt(finalDay) - parseInt(initialDay) +1;
+    	const initialHour = Math.floor((Math.random() * 11)+1);
+    	const initialMinutes = Math.floor(Math.random() *60);
+    	const finalHour = Math.floor((Math.random() * 11)+1);
+    	const finalMinutes = Math.floor(Math.random() *60);
+    	const countHours = parseInt(finalHour) - parseInt(initialHour);
+    	const countMinutes = parseInt(finalMinutes) - parseInt(initialMinutes);
+    	const countTotalMinutes = (countHours * 60) + countMinutes;
 
 	//Valet parking user cases
-    it('should be 12$ per day as a result', () => {
+    it('should be 18$ per day as a result', () => {
     	startingDate = $('#StartingDate');
 	    startingDate.setValue("07/"+initialDay+'/2020');
 	    leavingDate = $('#LeavingDate');
 	    leavingDate.setValue("07/"+finalDay+'/2020');
     	startingTime = $('#StartingTime');
 	    leavingTime = $('#LeavingTime');
-    	startingTime.setValue(Math.floor((Math.random() * 11)+1)+":" + (Math.floor(Math.random() *60)));
-	   	leavingTime.setValue(Math.floor((Math.random() * 11)+1)+":" + (Math.floor(Math.random() *60)));
+    	startingTime.setValue(initialHour+":" +initialMinutes);
+	   	leavingTime.setValue(finalHour+":" +finalMinutes);
 	    button = $('body > form > input[type=submit]:nth-child(3)');
    		button.click();
 	  	total = $('/html/body/form/table/tbody/tr[4]/td[2]');
-		expect(total).toHaveTextContaining("$ "+(countDays*18)+'.00');
+	  	if(countDays==1 && countHours<=5)
+	  	{
+	  		expect(total).toHaveTextContaining("$12.00");
+	  	}
+	  	else
+	  	{
+			expect(total).toHaveTextContaining("$ "+(countDays*18)+".00");  		
+	  	}
     })
 
 	//Short-Term (hourly) parking user cases
-    it('should be 24$ per day as a result', () => {
+    /*it('should be 24$ per day as a result', () => {
     	parkingLot= $('#ParkingLot > option:nth-child(2)');
 	    parkingLot.click();
    		button.click();
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		expect(total).toHaveTextContaining("$ "+(countDays*24)+'.00');
-	})
+	})*/
 	
 	weeks = false;
 	if(countDays >= 7)
@@ -61,8 +74,8 @@ describe('challenge test', () => {
 		countWeeks = countDays/7;
 	}
 
-	//Long-Term (hourly) parking user cases
-    it('should be 14$ per day or 72$ per week as a result', () => {
+	//Long-Term garage parking user cases
+    it('should be 12$ per day or 72$ per week as a result', () => {
     	parkingLot= $('#ParkingLot > option:nth-child(4)');
 	    parkingLot.click();
    		button.click();
@@ -71,7 +84,7 @@ describe('challenge test', () => {
 	    {
 	    	expect(total).toHaveTextContaining("$ "+(countWeeks*60)+'.00');
 	    }else{
-	    	expect(total).toHaveTextContaining("$ "+(countDays*24)+'.00');
+	    	expect(total).toHaveTextContaining("$ "+(countDays*12)+'.00');
 	    }
 	})
 })

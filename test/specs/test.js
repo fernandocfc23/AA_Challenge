@@ -1,4 +1,5 @@
 describe('challenge test', () => {
+	//Frontend test
     it('should have the right title', () => {
         browser.url('http://www.shino.de/parkcalc/')
         expect(browser).toHaveTitle('Parking Cost Calculator');
@@ -8,6 +9,8 @@ describe('challenge test', () => {
 		expect(startingDate).toBeClickable()
         const leavingDate = $('#LeavingDate')
 		expect(leavingDate).toBeClickable()
+		const selectone = $('#ParkingLot > option:nth-child(1)')
+		expect(leavingDate).toBeClickable()
     })
     it('should form have clickable elements', () => {
 	    const links = $$('Calculator')
@@ -15,10 +18,13 @@ describe('challenge test', () => {
 	        link.click()
 	    })
 	})
+	//Backend test
     it('should be 12$ as a result', () => {
 	    const startingDate = $('#StartingDate');
 	    startingDate.setValue('18/07/2020');
 	    const startingTime = $('#StartingTime');
+	    const firstOption= $('#ParkingLot > option:nth-child(2)')
+	    firstOption.click();
 	    startingTime.setValue(Math.floor((Math.random() * 5)+ 1)+":" + (Math.floor(Math.random() *60)));
 	    const leavingDate = $('#LeavingDate');
 	    leavingDate.setValue('18/07/2020');
@@ -28,7 +34,6 @@ describe('challenge test', () => {
    		button.click();
 	  	total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		expect(total).toHaveTextContaining('$ 12.00');
-
     })
     it('should be 18$ as a result', () => {
 		leavingTime.setValue(Math.floor((Math.random() * 2)+ 10)+":"+ (Math.floor(Math.random() *60)));

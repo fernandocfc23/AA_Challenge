@@ -19,16 +19,22 @@ describe('Parking lot', () => {
 	})
 
 		//Random functions for calendar 
-    	const initialDay = (Math.floor(Math.random() *29)+1);
+    	const initialDay = (Math.floor(Math.random() *29));
     	finalDay = 0;
     	do{
     		finalDay = (Math.floor(Math.random() *29)+1);
     	}while(initialDay >= finalDay); 
-    	const countDays = parseInt(finalDay) - parseInt(initialDay) +1;
+    	countDays = parseInt(finalDay) - parseInt(initialDay);
     	const initialHour = Math.floor((Math.random() * 11)+1);
     	const initialMinutes = Math.floor(Math.random() *60);
     	const finalHour = Math.floor((Math.random() * 11)+1);
     	const finalMinutes = Math.floor(Math.random() *60);
+    	if(finalHour < initialHour){
+    		countDays-=1;
+    	}
+    	if(finalHour == initialHour && finalMinutes < initialMinutes ){
+    		countDays-=1;
+    	}
     	const countHours = parseInt(finalHour) - parseInt(initialHour);
 
     it('should form have editable elements', () => {
@@ -55,17 +61,17 @@ describe('Parking lot', () => {
 	  	}
 	  	else
 	  	{
-			expect(total).toHaveTextContaining("$ "+(countDays*18)+".00");  		
+			expect(total).toHaveTextContaining("$ "+((countDays+1)*18)+".00");  		
 	  	}
     })
 	
 	weeks = false;
 	countWeeks=0;
-	if(countDays >= 7)
+	if((countDays+1) >= 7)
 	{
 		weeks = true;
-		countWeeks = ~~(countDays/7);
-		daysLeft = countDays - (countWeeks*7);
+		countWeeks = ~~((countDays+1)/7);
+		daysLeft = (countDays+1) - (countWeeks*7);
 	}
 
 	//Long-Term garage parking user cases
@@ -76,21 +82,21 @@ describe('Parking lot', () => {
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		    if(weeks)
 		    {
-		    	if (countHours <=5)
+		    	if (countHours>= 0 && countHours <=5)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((daysLeft)+((countHours+1)*2)+(countWeeks*72))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+(daysLeft+((countHours+1)*2)+(countWeeks*72))+'.00');
 		    	}
 		    	else{
 		    		expect(total).toHaveTextContaining("$ "+((daysLeft*12)+(countWeeks*72))+'.00');
 		    	}
 		    }else{
-		    	if (countHours <=5)
+		    	if (countHours>= 0 && countHours <=5)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*12+((countHours+1)*2))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+(countDays*12+((countHours+1)*2))+'.00');
 		    	}
 		    	else
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+(countDays*12)+'.00');	
+		    		expect(total).toHaveTextContaining("$ "+((countDays+1)*12)+'.00');	
 		    	}
 		    }
 	})	
@@ -103,21 +109,21 @@ describe('Parking lot', () => {
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		    if(weeks)
 		    {
-		    	if (countHours <=4)
+		    	if (countHours>= 0 && countHours <=4)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((daysLeft)+((countHours+1)*2)+(countWeeks*72))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+(daysLeft+((countHours+1)*2)+(countWeeks*72))+'.00');
 		    	}
 		    	else{
 		    		expect(total).toHaveTextContaining("$ "+((daysLeft*10)+(countWeeks*60))+'.00');
 		    	}
 		    }else{
-		    	if (countHours <=4)
+		    	if (countHours>= 0 && countHours <=4)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*10+((countHours+1)*2))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+(countDays*10+((countHours+1)*2))+'.00');
 		    	}
 		    	else
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+(countDays*10)+'.00');	
+		    		expect(total).toHaveTextContaining("$ "+((countDays+1)*10)+'.00');	
 		    	}
 		    }
 	})
@@ -129,21 +135,21 @@ describe('Parking lot', () => {
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
 		    if(weeks)
 		    {
-		    	if (countHours <=4)
+		    	if (countHours>= 0 && countHours <=4)
 		    	{
 		    		expect(total).toHaveTextContaining("$ "+((daysLeft)+((countHours+1)*2)+(countWeeks*72))+'.00');
 		    	}
 		    	else{
-		    		expect(total).toHaveTextContaining("$ "+((daysLeft*9)+(countWeeks*54))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+(((daysLeft)*9)+(countWeeks*54))+'.00');
 		    	}
 		    }else{
-		    	if (countHours <=4)
+		    	if (countHours>= 0 && countHours <=4)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((countDays-1)*9+((countHours+1)*2))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((countDays)*9+((countHours+1)*2))+'.00');
 		    	}
 		    	else
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+(countDays*9)+'.00');	
+		    		expect(total).toHaveTextContaining("$ "+((countDays+1)*9)+'.00');	
 		    	}
 		    }
 	})

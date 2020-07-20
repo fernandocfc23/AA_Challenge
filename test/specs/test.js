@@ -23,7 +23,7 @@ describe('Parking lot', () => {
     	finalDay = 0;
     	do{
     		finalDay = (Math.floor(Math.random() *29)+1);
-    	}while(initialDay > finalDay); 
+    	}while(initialDay >= finalDay); 
     	const countDays = parseInt(finalDay) - parseInt(initialDay) +1;
     	const initialHour = Math.floor((Math.random() * 11)+1);
     	const initialMinutes = Math.floor(Math.random() *60);
@@ -65,7 +65,7 @@ describe('Parking lot', () => {
 	{
 		weeks = true;
 		countWeeks = ~~(countDays/7);
-		daysLeft = countDays - (countWeeks*7)
+		daysLeft = countDays - (countWeeks*7);
 	}
 
 	//Long-Term garage parking user cases
@@ -78,7 +78,7 @@ describe('Parking lot', () => {
 		    {
 		    	if (countHours <=5)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+((countHours+1)*2)+(countWeeks*72))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft)+((countHours+1)*2)+(countWeeks*72))+'.00');
 		    	}
 		    	else{
 		    		expect(total).toHaveTextContaining("$ "+((daysLeft*12)+(countWeeks*72))+'.00');
@@ -105,7 +105,7 @@ describe('Parking lot', () => {
 		    {
 		    	if (countHours <=4)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+((countHours+1)*2)+(countWeeks*72))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft)+((countHours+1)*2)+(countWeeks*72))+'.00');
 		    	}
 		    	else{
 		    		expect(total).toHaveTextContaining("$ "+((daysLeft*10)+(countWeeks*60))+'.00');
@@ -131,7 +131,7 @@ describe('Parking lot', () => {
 		    {
 		    	if (countHours <=4)
 		    	{
-		    		expect(total).toHaveTextContaining("$ "+((daysLeft-1)+((countHours+1)*2)+(countWeeks*72))+'.00');
+		    		expect(total).toHaveTextContaining("$ "+((daysLeft)+((countHours+1)*2)+(countWeeks*72))+'.00');
 		    	}
 		    	else{
 		    		expect(total).toHaveTextContaining("$ "+((daysLeft*9)+(countWeeks*54))+'.00');

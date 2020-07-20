@@ -46,17 +46,32 @@ describe('challenge test', () => {
     })
 
 	//Short-Term (hourly) parking user cases
-    it('should be 2$ as a result', () => {
+    it('should be 24$ per day as a result', () => {
     	const parkingLot= $('#ParkingLot > option:nth-child(2)')
 	    parkingLot.click();
-	    const initialHour = Math.floor((Math.random() * 9)+ 1);
-	    const initialMinute = (Math.floor(Math.random() *60));
-	    startingTime.setValue(initialHour+":"+initialMinute);
-	    finalHour=parseInt(initialHour)+1;
-		leavingTime.setValue(finalHour+":"+initialMinute);
    		button.click();
 	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
-		expect(total).toHaveTextContaining('$ 2.00');
+		expect(total).toHaveTextContaining("$ "+(countDays*24)+'.00');
+	})
+	
+	if(countDays > 7)
+	{
+		weeks == true;
+		countWeeks == countDays/7;
+	}
+
+	//Long-Term (hourly) parking user cases
+    it('should be 14$ per day or 72$ per week as a result', () => {
+    	const parkingLot= $('#ParkingLot > option:nth-child(4)')
+	    parkingLot.click();
+   		button.click();
+	    total = $('/html/body/form/table/tbody/tr[4]/td[2]');
+	    if(weeks)
+	    {
+	    	expect(total).toHaveTextContaining("$ "+(countWeeks*60)+'.00');
+	    }else{
+	    	expect(total).toHaveTextContaining("$ "+(countDays*24)+'.00');
+	    }
 	})
 })
 

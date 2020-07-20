@@ -21,19 +21,18 @@ describe('challenge test', () => {
 	})
 
 	//-------------------------------Backend test-------------------------------
-
-	//Valet parking user cases
-    it('should be 12$ per day as a result', () => {
     	const initialDay = (Math.floor(Math.random() *29)+1);
     	finalDay = 0;
     	do{
     		finalDay = (Math.floor(Math.random() *29)+1);
     	}while(initialDay > finalDay); 
     	const countDays = parseInt(finalDay) - parseInt(initialDay);
+	//Valet parking user cases
+    it('should be 12$ per day as a result', () => {
 	    startingDate = $('#StartingDate');
 	    startingDate.setValue('07/'+initialDay+'/2020');
 	    startingTime = $('#StartingTime');
-	    startingTime.setValue(Math.floor((Math.random() * 5)+ 1)+":" + (Math.floor(Math.random() *60)));
+	    startingTime.setValue(Math.floor(Math.random() * 12)+":" + (Math.floor(Math.random() *60)));
 	    leavingDate = $('#LeavingDate');
 	    leavingDate.setValue('07/'+finalDay+'/2020');
 	    leavingTime = $('#LeavingTime');
@@ -41,7 +40,7 @@ describe('challenge test', () => {
 	    button = $('body > form > input[type=submit]:nth-child(3)');
    		button.click();
 	  	total = $('/html/body/form/table/tbody/tr[4]/td[2]');
-		expect(total).toHaveTextContaining(((countDays*18)+12)+'00');
+		expect(total).toHaveTextContaining("$"+(countDays*18)+'.00');
     })
     it('should be 18$ as a result', () => {
 		leavingTime.setValue(Math.floor((Math.random() * 2)+ 10)+":"+ (Math.floor(Math.random() *60)));
